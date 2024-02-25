@@ -1,5 +1,6 @@
 #include "student_code.h"
 #include "CGL/vector2D.h"
+#include "CGL/vector3D.h"
 #include "mutablePriorityQueue.h"
 
 using namespace std;
@@ -34,8 +35,12 @@ namespace CGL
    */
   std::vector<Vector3D> BezierPatch::evaluateStep(std::vector<Vector3D> const &points, double t) const
   {
-    // TODO Part 2.
-    return std::vector<Vector3D>();
+    vector<Vector3D> newPoints = std::vector<Vector3D>();
+    for (int i = 0; i < points.size() - 1; i++) {
+      Vector3D lerp = (1-t) * points[i] + (t) * points[i+1];
+      newPoints.push_back(lerp);
+    }
+    return newPoints;
   }
 
   /**
@@ -47,8 +52,11 @@ namespace CGL
    */
   Vector3D BezierPatch::evaluate1D(std::vector<Vector3D> const &points, double t) const
   {
-    // TODO Part 2.
-    return Vector3D();
+    vector<Vector3D> newPoints = evaluateStep(points, t);
+    while (newPoints.size() > 1) {
+      newPoints = evaluateStep(newPoints, t);
+    }
+    return newPoints[0];
   }
 
   /**
@@ -59,9 +67,13 @@ namespace CGL
    * @return Final interpolated vector
    */
   Vector3D BezierPatch::evaluate(double u, double v) const 
-  {  
-    // TODO Part 2.
-    return Vector3D();
+  {
+    vector<Vector3D> rowPoints = std::vector<Vector3D>();  
+    for (int i = 0; i < controlPoints.size(); i++) {
+      rowPoints.push_back(evaluate1D(controlPoints[i], u));
+    }
+    Vector3D colPoints = evaluate1D(rowPoints, v);
+    return colPoints;
   }
 
   Vector3D Vertex::normal( void ) const
