@@ -1,4 +1,5 @@
 #include "student_code.h"
+#include "CGL/vector2D.h"
 #include "mutablePriorityQueue.h"
 
 using namespace std;
@@ -15,8 +16,12 @@ namespace CGL
    */
   std::vector<Vector2D> BezierCurve::evaluateStep(std::vector<Vector2D> const &points)
   { 
-    // TODO Part 1.
-    return std::vector<Vector2D>();
+    vector<Vector2D> newPoints = std::vector<Vector2D>();
+    for (int i = 0; i < points.size() - 1; i++) {
+      Vector2D lerp = (1-t) * points[i] + (t) * points[i+1];
+      newPoints.push_back(lerp);
+    }
+    return newPoints;
   }
 
   /**
