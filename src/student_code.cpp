@@ -1,6 +1,7 @@
 #include "student_code.h"
 #include "CGL/vector2D.h"
 #include "CGL/vector3D.h"
+#include "halfEdgeMesh.h"
 #include "mutablePriorityQueue.h"
 
 using namespace std;
@@ -86,11 +87,11 @@ namespace CGL
     Vector3D normals = Vector3D();
 
     do {
-        HalfedgeCIter h_twin = h->twin()->next();
+        HalfedgeCIter h_twin = h->twin();
         HalfedgeCIter h_next = h_twin->next();
         VertexCIter v_twin = h_twin->vertex();
-        VertexCIter v_next = h_next->vertex();
-        Vector3D normal = cross(v_twin->position, v_next->position);
+        VertexCIter v_next = h_next->twin()->vertex();
+        Vector3D normal = cross(-v_twin->position, v_next->position);
         normals += normal;
         h = h_next;
     } while(h != halfedge());
@@ -100,9 +101,54 @@ namespace CGL
 
   EdgeIter HalfedgeMesh::flipEdge( EdgeIter e0 )
   {
-    // TODO Part 4.
-    // This method should flip the given edge and return an iterator to the flipped edge.
-    return EdgeIter();
+    if (e0->isBoundary()) {
+      return e0;
+    }
+
+    // Retrieve all elements
+    HalfedgeIter bd = e0->halfedge();
+    HalfedgeIter db = bd->twin();
+    HalfedgeIter da = bd->next();
+    HalfedgeIter ab = da->next();
+    HalfedgeIter bc = db->next();
+    HalfedgeIter cd = bc->next();
+
+    VertexIter a = ab->vertex();
+    VertexIter b = bd->vertex();
+    VertexIter c = cd->vertex();
+    VertexIter d = db->vertex();
+
+    FaceIter abd = bd->face();
+    FaceIter cbd = db->face();
+
+    // Create new pointer names for the flip
+    HalfedgeIter ac = bd;
+    HalfedgeIter ca = db;
+
+    // Set vertices
+    a->halfedge() = ac;
+    c->halfedge() = ca;
+
+    // Set edges
+    e0->halfedge() = ac;
+
+    // Set faces
+    FaceIter acd = abd;
+    FaceIter cab = cbd;
+    acd->halfedge() = ac;
+    cab->halfedge() = ca;
+
+
+    // Set halfedges
+    ac->setNeighbors(cd, ca, a, e0, acd);
+    cd->next() = da;
+    da->next() = ac;
+
+    ca->setNeighbors(ab, ac, c, ca->edge(), cbd);
+    ab->next() = bc;
+    bc->next() = ca;
+
+    return e0;
   }
 
   VertexIter HalfedgeMesh::splitEdge( EdgeIter e0 )
