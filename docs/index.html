@@ -118,8 +118,6 @@
 
       <h4>1. Bezier Curves with 1D de Casteljau Subdivision</h4>
       <p class="entry">
-        Insert explanation here.
-        <br/><br/>
         <div style="display: flex; flex-wrap: wrap; gap: 3px;">
           <img src="./bezier/b1.png" width="200px" height="200px" class="image" style="object-fit: cover; margin: 0;"/>
           <img src="./bezier/b2.png" width="200px" height="200px" class="image" style="object-fit: cover; margin: 0;"/>
@@ -142,8 +140,6 @@
 
       <h4>2. Bezier Surfaces with Separable 1D de Casteljau</h4>
       <p class="entry">
-        Explanation
-        <br/>
         <img src="./bezier/monocolor_teapot.png" height="300px" class="image"/>
         <p class="caption">
           Fig 3. A rendering of a teapot with bezier surfaces.
@@ -166,7 +162,7 @@
             <img src="./areaweighted/teapot1p.png" width="250px" class="image" style="object-fit: cover; margin: 0;"/>
             <img src="./areaweighted/teapot2f.png" width="250px" class="image" style="object-fit: cover; margin: 0;"/>
             <img src="./areaweighted/teapot2p.png" width="250px" class="image" style="object-fit: cover; margin: 0;"/>
-          </div>
+        </div>
         </div>
         <br/>
         <p class="caption">
@@ -183,14 +179,15 @@
         pointers with names that relect each element's geometry after the flip (for example, 
         FaceIter acd = abd) makes it possible to align each step easily with a visual diagram 
         and debug issues intuitively.
-        <div style="display: flex; flex-wrap: wrap; row-gap: 0 !important;">
-          <img src="./images/near1.png" width="400px" height="400px" class="image" style="object-fit: cover;"/>
-          <img src="./images/near16.png" width="400px" height="400px" class="image" style="object-fit: cover;"/>
-          <img src="./images/lin1.png" width="400px" height="400px" class="image" style="object-fit: cover;"/>
-          <img src="./images/lin16.png" width="400px" height="400px" class="image" style="object-fit: cover;"/>
+        <div style="display: flex; gap: 5px; flex-wrap: wrap; width: 550px">
+          <img src="./flipsplit/beforeflip.png" width="250px" class="image" style="object-fit: cover; margin: 0;"/>
+          <img src="./flipsplit/afterflip.png" width="250px" class="image" style="object-fit: cover; margin: 0;"/>
+          <img src="./flipsplit/beforebigflip.png" width="250px" class="image" style="object-fit: cover; margin: 0;"/>
+          <img src="./flipsplit/afterbigflip.png" width="250px" class="image" style="object-fit: cover; margin: 0;"/>
         </div>
+        <br/>
         <p class="caption">
-          Fig 5. (Top) Near sampling, 1 and 16 samples per pixel respectively. (Bottom)  Bilinear sampling, 1 and 16 samples per pixel respectively.
+          Fig 5. (Left) Before flipping (Right) After flipping
         </p>
         <br/>
         Debugging this function was certainly eventful. My first implementation lead to perpetual buffering 
@@ -205,14 +202,17 @@
 
       <h4>6. Part 6: "Level sampling" with mipmaps for texture mapping</h4>
       <p>
-        <div style="display: flex;">
-          <img src="./images/L0Pnear.png" width="250px" height="250px" class="image" style="object-fit: cover;"/>
-          <img src="./images/L0Plin.png" width="250px" height="250px" class="image" style="object-fit: cover;"/>
-          <img src="./images/LnearPnear.png" width="250px" height="250px" class="image" style="object-fit: cover;"/>
-          <img src="./images/LnearPlin.png" width="250px" height="250px" class="image" style="object-fit: cover;"/>
+        <div style="display: flex; gap: 5px; flex-wrap: wrap; width: 550px">
+          <img src="./flipsplit/beforesplit.png" width="250px" class="image" style="object-fit: cover; margin: 0;"/>
+          <img src="./flipsplit/aftersplit.png" width="250px" class="image" style="object-fit: cover; margin: 0;"/>
+          <img src="./flipsplit/beforebigsplit.png" width="250px" class="image" style="object-fit: cover; margin: 0;"/>
+          <img src="./flipsplit/afterbigsplit.png" width="250px" class="image" style="object-fit: cover; margin: 0;"/>
+          <img src="./flipsplit/beforetotal.png" width="250px" class="image" style="object-fit: cover; margin: 0;"/>
+          <img src="./flipsplit/aftertotal.png" width="250px" class="image" style="object-fit: cover; margin: 0;"/>
         </div>
+        <br/>
         <p class="caption">
-          Fig 6. (a)-(b) Level zero, near and linear sampling respectively. (c)-(d) Level nearest, near and linear sampling respectively.
+          Fig 6. (Left) Before splitting (Right) After splitting. Note that the bottom row includes splitting and flipping.
         </p>
       </p>
     </div>
