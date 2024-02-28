@@ -242,6 +242,11 @@ namespace CGL
     ea->halfedge() = ha;
     ec->halfedge() = hc;
     ed->halfedge() = hd;
+
+    ea->isNew = true;
+    eb->isNew = true;
+    ec->isNew = true;
+    ed->isNew = true;
   
     return m;
   }
@@ -269,5 +274,14 @@ namespace CGL
 
     // 5. Copy the new vertex positions into final Vertex::position.
 
+    vector<EdgeIter> oldEdges;
+    for (EdgeIter e = mesh.edgesBegin(); e != mesh.edgesEnd(); e++) {
+      oldEdges.push_back(e);
+    }
+
+    for (auto & e : oldEdges) {
+      VertexIter v = mesh.splitEdge(e);
+      HalfedgeIter h = v->halfedge();
+    }
   }
 }

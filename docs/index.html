@@ -3,310 +3,222 @@
 <head>
 <style>
   body {
-    background-color: white;
-    padding: 100px;
-    width: 1000px;
-    margin: auto;
+    position: relative;
+    padding: 0;
+    margin: 0;
+  }
+  header {
+    position: relative;
+    background-color: #379f31;
+    padding: 50px 100px;
+    margin: 0;
+  }
+  .main {
+    padding: 0 150px;
     text-align: left;
     font-weight: 300;
     font-family: 'Open Sans', sans-serif;
     color: #121212;
   }
-  h1, h2, h3, h4 {
-    font-family: 'Source Sans Pro', sans-serif;
+  h1 {
+    color: #FFF;
+    font-family: 'Playfair Display', serif;
+    font-size: 35px;
+    font-weight: 600;
+    margin: 0 auto;
   }
-  kbd {
+  h2 {
+    color: #FFF;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 300;
+    font-size: 10 !important;
+    letter-spacing: 0.1em;
+    margin: 0 auto;
+  }
+  h3 {
     color: #121212;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 600;
+    font-size: 32px;
+    margin: 0 auto;
+  }
+  h4 {
+    color: #379f31;
+    font-weight: 600;
+    font-size: 20px;
+    font-family: 'Open Sans', sans-serif;
+  }
+  .homework-num {
+    color:#379f31;
+    font-weight: 600;
+    font-size: 15px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin: 80px 0 0 0;
+  }
+  .overview {
+    color: #121212;
+    margin: 0;
+  }
+  .overview-container {
+    background-color:#379f315b;
+    padding: 50px;
+    margin: 50px 0 0 0;
+  }
+  .section {
+    font-size: 25px;
+  }
+  .entry {
+    margin: 0 0 0 22px;
+  }
+  .image {
+    margin: 30px 0;
+  }
+  .caption {
+    font-style: italic;
+    font-size: 14px;
+    margin: -7px 0 0 0;
+  }
+  footer {
+    height: 20vh;
   }
 </style>
-<title>CS 184 Mesh Edit</title>
+<title>CS 184/284A Rasterizer</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<link href="https://fonts.googleapis.com/css?family=Open+Sans|Source+Sans+Pro" rel="stylesheet">
-
-<script>
-  MathJax = {
-    tex: {
-      inlineMath: [['$', '$'], ['\\(', '\\)']]
-    }
-  };
-</script>
-<script id="MathJax-script" async
-  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
-</script>
-
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400;1,500&display=swap" rel="stylesheet">
 </head>
 
-
 <body>
+  <header>
+    <h2>CS 184/284A</h2>
+    <h1>Computer Graphics and Imaging, Spring 2024</h1>
+  </header>
+  <div class="main">
+    <p align="middle" class="homework-num">Project 2</p>
+    <h3 align="middle">Mesh Editing</h1>
+    <p align="middle">Jamie Walton</p>
 
-<h1 align="middle">CS 184: Computer Graphics and Imaging, Spring 2018</h1>
-<h1 align="middle">Project 2: Mesh Edit</h1>
-<h2 align="middle">YOUR NAME</h2>
+    <div class="overview-container">
+      <p class="homework-num overview">Overview</p>
+      <p>
+        This project focused on how we can build and manipulate meshes. From a technical 
+        perspective, I learned how to implement the algorithms we saw in class and understand
+        the relationships between each element that makes of the underpinnings of meshes-- vertices, 
+        halfedges, edges, and faces. On a broader scale, it helped me contextualize graphics in three 
+        dimensions. Meshes bridge the gap between my conception of a finished visual and the mathematics
+        of achieving it.
+      </p>
+    </div>
 
-<br><br>
+    <div>
+      <p class="homework-num">Section 1</p>
+      <h3 class="section">Bezier Curves and Surfaces</h3>
 
-<div>
+      <h4>1. Bezier Curves with 1D de Casteljau Subdivision</h4>
+      <p class="entry">
+        Insert explanation here.
+        <br/><br/>
+        <div style="display: flex; flex-wrap: wrap; gap: 3px;">
+          <img src="./bezier/b1.png" width="200px" height="200px" class="image" style="object-fit: cover; margin: 0;"/>
+          <img src="./bezier/b2.png" width="200px" height="200px" class="image" style="object-fit: cover; margin: 0;"/>
+          <img src="./bezier/b3.png" width="200px" height="200px" class="image" style="object-fit: cover; margin: 0;"/>
+          <img src="./bezier/b4.png" width="200px" height="200px" class="image" style="object-fit: cover; margin: 0;"/>
+          <img src="./bezier/b5.png" width="200px" height="200px" class="image" style="object-fit: cover; margin: 0;"/>
+          <img src="./bezier/b6.png" width="200px" height="200px" class="image" style="object-fit: cover; margin: 0;"/>
+          <img src="./bezier/b7.png" width="200px" height="200px" class="image" style="object-fit: cover; margin: 0;"/>
+        </div>
+        <br/>
+        <p class="caption">
+          Fig 1. A Bezier curve at each level of evaluation.
+        </p>
+        <br/>
+        <img src="./bezier/adjust.gif" height="300px" class="image"/>
+        <p class="caption">
+          Fig 2. Adjustment of a Bezier curve in the GUI.
+        </p>
+      </p>
 
-<h2 align="middle">Overview</h2>
-<p>
-    YOUR RESPONSE GOES HERE
-</p>
-<br>
+      <h4>2. Bezier Surfaces with Separable 1D de Casteljau</h4>
+      <p class="entry">
+        Explanation
+        <br/>
+        <img src="./bezier/monocolor_teapot.png" height="300px" class="image"/>
+        <p class="caption">
+          Fig 3. A rendering of a teapot with bezier surfaces.
+        </p>
+      </p>
 
+    <div>
+      <p class="homework-num">Section 2</p>
+      <h3 class="section">Triangle Meshes and Half-Edge Data Structure</h3>
 
-<h2 align="middle">Section I: Bezier Curves and Surfaces</h2>
+      <h4>3. Area-Weighted Vertex Normals</h4>
+      <p class="entry">
+        To find the area-weighted vertex normals, my algorithm loops through each
+        halfedge connected to the vertex. It then takes the cross product of it and 
+        the next halfedge to get a vector normal to the face. After the loop, it divides 
+        the sum of all the normal vectors by the norm of the sum.
+        <br/><br/>
+        <div style="display: flex; gap: 5px; flex-wrap: wrap; width: 550px">
+            <img src="./areaweighted/teapot1f.png" width="250px" class="image" style="object-fit: cover; margin: 0;"/>
+            <img src="./areaweighted/teapot1p.png" width="250px" class="image" style="object-fit: cover; margin: 0;"/>
+            <img src="./areaweighted/teapot2f.png" width="250px" class="image" style="object-fit: cover; margin: 0;"/>
+            <img src="./areaweighted/teapot2p.png" width="250px" class="image" style="object-fit: cover; margin: 0;"/>
+          </div>
+        </div>
+        <br/>
+        <p class="caption">
+          Fig 4. (Left) Flat surface renderings (Right) Phong shaded renderings.
+        </p>
+      </p>
 
-<h3 align="middle">Part 1: Bezier Curves with 1D de Casteljau Subdivision</h3>
+      <h4>4. Edge Flip</h4>
+      <p>
+        Implementing the edge flip requires strategically swapping pointers. First, 
+        the algorithm retrieves every halfedge, vertex, and face. It then systematically 
+        reassigns each one according to the new edge flip order. The script includes some 
+        extra pointers, which may appear unnecessary at first glance. But creating new 
+        pointers with names that relect each element's geometry after the flip (for example, 
+        FaceIter acd = abd) makes it possible to align each step easily with a visual diagram 
+        and debug issues intuitively.
+        <div style="display: flex; flex-wrap: wrap; row-gap: 0 !important;">
+          <img src="./images/near1.png" width="400px" height="400px" class="image" style="object-fit: cover;"/>
+          <img src="./images/near16.png" width="400px" height="400px" class="image" style="object-fit: cover;"/>
+          <img src="./images/lin1.png" width="400px" height="400px" class="image" style="object-fit: cover;"/>
+          <img src="./images/lin16.png" width="400px" height="400px" class="image" style="object-fit: cover;"/>
+        </div>
+        <p class="caption">
+          Fig 5. (Top) Near sampling, 1 and 16 samples per pixel respectively. (Bottom)  Bilinear sampling, 1 and 16 samples per pixel respectively.
+        </p>
+        <br/>
+        Debugging this function was certainly eventful. My first implementation lead to perpetual buffering 
+        instead of edge flipping. The actual runtime error occurred during a later rendering step, so stepping 
+        through the function or callstack didn't reveal much. However, I was able to pinpoint the problem by 
+        systematically commenting out different codeblocks until I found the part causing the error. It turned 
+        out that I was missing some face reassignments. Consulting my geometry then adding the right assignments 
+        in solved the runtime error, but now each flip was altering the shading around the target triangle. I 
+        finally found bug in my halfedge iteration from part 3 that was the culprit and the part 4 worked 
+        perfectly.
+      </p>
 
+      <h4>6. Part 6: "Level sampling" with mipmaps for texture mapping</h4>
+      <p>
+        <div style="display: flex;">
+          <img src="./images/L0Pnear.png" width="250px" height="250px" class="image" style="object-fit: cover;"/>
+          <img src="./images/L0Plin.png" width="250px" height="250px" class="image" style="object-fit: cover;"/>
+          <img src="./images/LnearPnear.png" width="250px" height="250px" class="image" style="object-fit: cover;"/>
+          <img src="./images/LnearPlin.png" width="250px" height="250px" class="image" style="object-fit: cover;"/>
+        </div>
+        <p class="caption">
+          Fig 6. (a)-(b) Level zero, near and linear sampling respectively. (c)-(d) Level nearest, near and linear sampling respectively.
+        </p>
+      </p>
+    </div>
 
-<b>
-  Briefly explain de Casteljau's algorithm and how you implemented it in order to evaluate Bezier curves.
-</b>
-<p>
-    YOUR RESPONSE GOES HERE
-</p>
-<br>
+    <footer></footer>
 
-
-<b>
-  Take a look at the provided .bzc files and create your own Bezier curve with 6 control points of your choosing. Use this Bezier curve for your screenshots below.
-</b>
-<p>
-    YOUR RESPONSE GOES HERE
-</p>
-<!-- Example of including a single figure -->
-<div align="middle">
-  <img src="images/your_file.png" align="middle" width="50%">
-</div>
-<br>
-
-<b>
-  Show screenshots of each step / level of the evaluation from the original control points down to the final evaluated point. Press <kbd>E</kbd> to step through. Toggle <kbd>C</kbd> to show the completed Bezier curve as well.
-</b>
-<!-- Example of including multiple figures -->
-<div align="middle">
-  <table style="width:100%">
-    <tr align="center">
-      <td>
-        <img src="images/your_file.png" align="middle" width="400px"/>
-        <figcaption>Level 0</figcaption>
-      </td>
-      <td>
-        <img src="images/your_file.png" align="middle" width="400px"/>
-        <figcaption>Level 1</figcaption>
-      </td>
-    </tr>
-    <br>
-    <tr align="center">
-      <td>
-        <img src="images/your_file.png" align="middle" width="400px"/>
-        <figcaption>Level 2</figcaption>
-      </td>
-      <td>
-        <img src="images/your_file.png" align="middle" width="400px"/>
-        <figcaption>Level 3</figcaption>
-      </td>
-    </tr>
-    <br>
-    <tr align="center">
-      <td>
-        <img src="images/your_file.png" align="middle" width="400px"/>
-        <figcaption>Level 4</figcaption>
-      </td>
-    </tr>
-  </table>
-</div>
-<br>
-
-
-<b>
-  Show a screenshot of a slightly different Bezier curve by moving the original control points around and modifying the parameter \(t\) via mouse scrolling.
-</b>
-<p>
-    YOUR RESPONSE GOES HERE
-</p>  
-<br>
-
-
-<h3 align="middle">Part 2: Bezier Surfaces with Separable 1D de Casteljau</h3>
-<b>
-  Briefly explain how de Casteljau algorithm extends to Bezier surfaces and how you implemented it in order to evaluate Bezier surfaces.
-</b>
-<p>
-    YOUR RESPONSE GOES HERE
-</p>
-<br>
-
-
-<b>
-  Show a screenshot of bez/teapot.bez (not .dae) evaluated by your implementation.
-</b>
-<p>
-    YOUR RESPONSE GOES HERE
-</p>
-<br>
-
-
-<h2 align="middle">Section II: Triangle Meshes and Half-Edge Data Structure</h2>
-
-<h3 align="middle">Part 3: Area-Weighted Vertex Normals</h3>
-
-<b>
-  Briefly explain how you implemented the area-weighted vertex normals.
-</b>
-<p>
-    YOUR RESPONSE GOES HERE
-</p>
-<br>
-
-
-<b>
-  Show screenshots of dae/teapot.dae (not .bez) comparing teapot shading with and without vertex normals. Use <kbd>Q</kbd> to toggle default flat shading and Phong shading.
-</b>
-<p>
-    YOUR RESPONSE GOES HERE
-</p>
-<br>
-
-
-<h3 align="middle">Part 4: Edge Flip</h3>
-<b>
-  Briefly explain how you implemented the edge flip operation and describe any interesting implementation / debugging tricks you have used.
-</b>
-<p>
-    YOUR RESPONSE GOES HERE
-</p>
-<br>
-
-
-<b>
-  Show screenshots of the teapot before and after some edge flips.
-</b>
-<p>
-    YOUR RESPONSE GOES HERE
-</p>
-<br>
-
-
-<b>
-    Write about your eventful debugging journey, if you have experienced one.
-</b>
-<p>
-    YOUR RESPONSE GOES HERE
-</p>
-<br>
-
-
-<h3 align="middle">Part 5: Edge Split</h3>
-<b>
-  Briefly explain how you implemented the edge split operation and describe any interesting implementation / debugging tricks you have used.
-</b>
-<p>
-    YOUR RESPONSE GOES HERE
-</p>
-<br>
-
-
-<b>
-    Show screenshots of a mesh before and after some edge splits. 
-</b>
-<p>
-    YOUR RESPONSE GOES HERE
-</p>
-<br>
-
-
-<b>
-    Show screenshots of a mesh before and after a combination of both edge splits and edge flips.
-</b>
-<p>
-    YOUR RESPONSE GOES HERE
-</p>
-<br>
-
-
-<b>
-    Write about your eventful debugging journey, if you have experienced one.
-</b>
-<p>
-    YOUR RESPONSE GOES HERE
-</p>
-<br>
-
-
-<b>
-    If you have implemented support for boundary edges, show screenshots of your implementation properly handling split operations on boundary edges.
-</b>
-<p>
-    YOUR RESPONSE GOES HERE
-</p>
-<br>
-
-
-<h3 align="middle">Part 6: Loop Subdivision for Mesh Upsampling</h3>
-<b>
-  Briefly explain how you implemented the loop subdivision and describe any interesting implementation / debugging tricks you have used.
-</b>
-<p>
-    YOUR RESPONSE GOES HERE
-</p>
-<br>
-
-
-<b>
-  Take some notes, as well as some screenshots, of your observations on how meshes behave after loop subdivision. What happens to sharp corners and edges? Can you reduce this effect by pre-splitting some edges?
-</b>
-<p>
-    YOUR RESPONSE GOES HERE
-</p>
-<br>
-
-
-<b>
-  Load dae/cube.dae. Perform several iterations of loop subdivision on the cube. Notice that the cube becomes slightly asymmetric after repeated subdivisions. Can you pre-process the cube with edge flips and splits so that the cube subdivides symmetrically? Document these effects and explain why they occur. Also explain how your pre-processing helps alleviate the effects.
-</b>
-<p>
-    YOUR RESPONSE GOES HERE
-</p>
-<br>
-
-
-<b>
-    If you have implemented any extra credit extensions, explain what you did and document how they work with screenshots.
-</b>
-<p>
-    YOUR RESPONSE GOES HERE
-</p>
-<br>
-
-
-<h3 align="middle">Part 7 (Optional, Possible Extra Credit)</h3>
-<b>
-    Save your best polygon mesh as partsevenmodel.dae in your docs folder and show us a screenshot of the mesh in your write-up.
-</b>
-<p>
-    YOUR RESPONSE GOES HERE
-</p>
-<br>
-
-
-<b>
-    Include a series of screenshots showing your original mesh and your mesh after one and two rounds of subdivision. If you have used custom shaders, include screenshots of your mesh with those shaders applied as well.
-</b>
-<p>
-    YOUR RESPONSE GOES HERE
-</p>
-<br>
-
-
-<b>
-    Describe what you have done to enhance your mesh beyond the simple humanoid mesh described in the tutorial.
-</b>
-<p>
-    YOUR RESPONSE GOES HERE
-</p>
-<br>
-
-
+  </div>
 </body>
 </html>
