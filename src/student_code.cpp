@@ -175,6 +175,7 @@ namespace CGL
     Vector3D midpoint = (endpoint1 + endpoint2) / 2;
     VertexIter m = newVertex();
     m->position = midpoint;
+    m->halfedge() = h;
 
     // Create edges
     EdgeIter ea = newEdge();
@@ -212,38 +213,30 @@ namespace CGL
     hd->vertex() = d;
 
     hat->setNeighbors(ab, ha, m, ea, fb);
-    hbt->vertex() = m;
-    hbt->face() = fd;
+    hbt->setNeighbors(bd, hb, m, eb, fd);
     hct->setNeighbors(ca, hc, m, ec, fa);
     hdt->setNeighbors(dc, hd, m, ed, fc);
 
-    ha->next() = hct;
-    hb->next() = hat;
-    hc->next() = hdt;
-    hd->next() = hbt;
-
-    ha->twin() = hat;
-    hb->twin() = hbt;
-    hc->twin() = hct;
-    hd->twin() = hdt;
-
-    ha->edge() = ea;
-    hc->edge() = ec;
-    hd->edge() = ed;
-
-    ha->face() = fa;
-    hc->face() = fc;
-    hd->face() = fd;
+    ha->setNeighbors(hct, hat, a, ea, fa);
+    hb->setNeighbors(hat, hbt, b, eb, fb);
+    hc->setNeighbors(hdt, hct, c, ec, fc);
+    hd->setNeighbors(hbt, hdt, d, ed, fd);
 
     ca->next() = ha;
     ab->next() = hb;
     bd->next() = hd;
-    dc->next() = dc;
+    dc->next() = hc;
+
+    ca->face() = fa;
+    ab->face() = fb;
+    bd->face() = fd;
+    dc->face() = fc;
 
     // Set faces
     fa->halfedge() = ha;
-    // fc->halfedge() = hc;
-    // fd->halfedge() = hbt;
+    fb->halfedge() = hb;
+    fc->halfedge() = hc;
+    fd->halfedge() = hd;
 
     // Set edges
     ea->halfedge() = ha;
