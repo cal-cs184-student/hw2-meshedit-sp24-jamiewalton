@@ -153,10 +153,104 @@ namespace CGL
 
   VertexIter HalfedgeMesh::splitEdge( EdgeIter e0 )
   {
-    // TODO Part 5.
-    // This method should split the given edge and return an iterator to the newly inserted vertex.
-    // The halfedge of this vertex should point along the edge that was split, rather than the new edges.
-    return VertexIter();
+
+    HalfedgeIter h = e0->halfedge();
+    if (e0->isBoundary()) {
+      return h->vertex();
+    }
+
+    VertexIter a = h->next()->next()->vertex();
+    VertexIter b = h->vertex();
+    VertexIter c = h->twin()->vertex();
+    VertexIter d = h->twin()->next()->next()->vertex();
+
+    HalfedgeIter ab = h->next()->next();
+    HalfedgeIter bd = h->twin()->next();
+    HalfedgeIter dc = h->twin()->next()->next();
+    HalfedgeIter ca = h->next();
+
+    // Create new vertex
+    Vector3D endpoint1 = h->vertex()->position;
+    Vector3D endpoint2 = h->twin()->vertex()->position;
+    Vector3D midpoint = (endpoint1 + endpoint2) / 2;
+    VertexIter m = newVertex();
+    m->position = midpoint;
+
+    // Create edges
+    EdgeIter ea = newEdge();
+    EdgeIter eb = e0;
+    EdgeIter ec = newEdge();
+    EdgeIter ed = newEdge();
+
+    ea->halfedge() = h;
+    ec->halfedge() = h;
+    ed->halfedge() = h;
+
+    // Create faces
+    FaceIter fa = newFace();
+    FaceIter fb = h->face();
+    FaceIter fc = newFace();
+    FaceIter fd = h->twin()->face();
+
+    fa->halfedge() = h;
+    fc->halfedge() = h;
+
+    // Create halfedges
+    HalfedgeIter ha = newHalfedge();
+    HalfedgeIter hb = h;
+    HalfedgeIter hc = newHalfedge();
+    HalfedgeIter hd = newHalfedge();
+
+    HalfedgeIter hat = newHalfedge();
+    HalfedgeIter hbt = h->twin();
+    HalfedgeIter hct = newHalfedge();
+    HalfedgeIter hdt = newHalfedge();
+
+    // Set halfedges
+    ha->vertex() = a;
+    hc->vertex() = c;
+    hd->vertex() = d;
+
+    hat->setNeighbors(ab, ha, m, ea, fb);
+    hbt->vertex() = m;
+    hbt->face() = fd;
+    hct->setNeighbors(ca, hc, m, ec, fa);
+    hdt->setNeighbors(dc, hd, m, ed, fc);
+
+    ha->next() = hct;
+    hb->next() = hat;
+    hc->next() = hdt;
+    hd->next() = hbt;
+
+    ha->twin() = hat;
+    hb->twin() = hbt;
+    hc->twin() = hct;
+    hd->twin() = hdt;
+
+    ha->edge() = ea;
+    hc->edge() = ec;
+    hd->edge() = ed;
+
+    ha->face() = fa;
+    hc->face() = fc;
+    hd->face() = fd;
+
+    ca->next() = ha;
+    ab->next() = hb;
+    bd->next() = hd;
+    dc->next() = dc;
+
+    // Set faces
+    fa->halfedge() = ha;
+    // fc->halfedge() = hc;
+    // fd->halfedge() = hbt;
+
+    // Set edges
+    ea->halfedge() = ha;
+    ec->halfedge() = hc;
+    ed->halfedge() = hd;
+  
+    return m;
   }
 
 
